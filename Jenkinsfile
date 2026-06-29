@@ -49,11 +49,15 @@ pipeline {
             steps {
                    echo 'Levantando la aplicación Flask en un nuevo contenedor...'
                    sh '''
-  		   echo "Deteniendo contenedor anterior si existe..."
+		    echo "Deteniendo contenedor anterior si existe..."
                     docker stop flask-webapp-container || true
 
                     echo "Eliminando contenedor anterior si existe..."
                     docker rm flask-webapp-container || true
+
+	            echo "Liberando el puerto 5000 si está ocupado..."
+        	    # Busca cualquier contenedor que esté usando el puerto 5000 y lo elimina
+		    docker ps -q --filter "publish=5000" | xargs -r docker rm -f
 
                     echo "Crea y ejecuta el contenedor con la nueva imagen"
                     docker run -d --name flask-webapp-container -p 5000:5000 flask-webapp
