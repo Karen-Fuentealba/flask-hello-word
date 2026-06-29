@@ -9,7 +9,7 @@ metrics = PrometheusMetrics(app)
 # Endpoint principal
 @app.route('/')
 def hello():
-    return "¡¡¡¡   Hola Mundo   !!!!"
+    return "* * * *   Despliegue utilizando pipeline desde Jenkins   * * * *"
 
 # Endpoint de prueba
 @app.route('/ping')
