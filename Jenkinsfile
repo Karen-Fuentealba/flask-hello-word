@@ -32,15 +32,15 @@ pipeline {
             steps {
                 echo 'Construyendo la nueva imagen Docker de la aplicación...'
                 sh '''
-                    # Detengo y elimino cualquier contenedor anterior para evitar conflictos
+                    echo "Detiene y elimina cualquier contenedor anterior para evitar conflictos"
                     echo "Deteniendo contenedor anterior si existe..."
                     docker stop flask-webapp-container || true
 
                     echo "Eliminando contenedor anterior si existe..."
                     docker rm flask-webapp-container || true
 
-                    # Construyo la nueva imagen con los cambios recientes
-                    echo "Construyendo imagen flask-webapp..."
+                    echo "Construye la nueva imagen con los cambios recientes"
+                    docker build -t flask-webapp ./flask-hello-word
                     docker build -t flask-webapp .
                 '''
             }
@@ -50,7 +50,7 @@ pipeline {
             steps {
                 echo 'Levantando la aplicación Flask en un nuevo contenedor...'
                 sh '''
-                    # Creo y ejecuto el contenedor con la nueva imagen
+                    echo "Crea y ejecuta el contenedor con la nueva imagen"
                     docker run -d --name flask-webapp-container -p 5000:5000 flask-webapp
 
                     echo "Contenedor desplegado correctamente. Verificando estado..."
