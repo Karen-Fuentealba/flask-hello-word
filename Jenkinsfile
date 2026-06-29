@@ -40,7 +40,7 @@ pipeline {
                     docker rm flask-webapp-container || true
 
                     echo "Construye la nueva imagen con los cambios recientes"
-                    docker build -t flask-webapp ./flask-hello-word
+                    docker build -t flask-webapp .
                    '''
             }
         }
